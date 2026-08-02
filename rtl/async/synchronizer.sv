@@ -49,4 +49,4 @@ module synchronizer
 	// Output is the last stage of the synchronizer pipeline
 	assign sync_out = sync_r[SYN_STAGES-1];
 
-endmodule
+endmodule 
