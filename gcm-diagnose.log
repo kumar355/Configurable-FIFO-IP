@@ -1,0 +1,130 @@
+﻿Diagnose log at 2026-08-02T07:20:02Z
+
+AppPath: C:\Program Files\Git\mingw64\bin\git-credential-manager.exe
+InstallDir: C:\Program Files\Git\mingw64\bin\
+Version: 2.6.1+786ab03440ddc82e807a97c0e540f5247e44cec6
+
+------------
+Diagnostic: Environment
+Skipped: False
+Success: True
+Exception: None
+Log:
+OSType: Windows
+OSVersion: 10.0 (build 26200)
+Reading environment variables... OK
+ Variables:
+HOMEPATH=\Users\kumar
+DriverData=C:\Windows\System32\Drivers\DriverData
+COMPUTERNAME=LAPTOP-9AMORBQI
+GIT_TRACE2_PARENT_SID=eef9dde1-80bd-4f66-a1bf-d199a325e0e6
+EFC_2464_1262719628=1
+gensim-data=D:\gensim-data
+OneDrive=C:\Users\kumar\OneDrive
+SALT_LICENSE_SERVER=D:\Questa_License\LR-178665_License.dat
+PYTHON_BASIC_REPL=1
+PyCharm=C:\Program Files\JetBrains\PyCharm 2024.3.4\bin;
+SESSIONNAME=Console
+LANG=en_US.UTF-8
+TMP=D:\temp
+PROCESSOR_REVISION=9a03
+PATHEXT=.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC
+GIT_ASKPASS=c:\Users\kumar\AppData\Local\Programs\Microsoft VS Code\resources\app\extensions\git\dist\askpass.sh
+GIT_EXEC_PATH=C:/Program Files/Git/mingw64/libexec/git-core
+TEMP=D:temp
+LOCALAPPDATA=C:\Users\kumar\AppData\Local
+MSYSTEM=MINGW64
+TERM=xterm-256color
+EFC_2464_2946480783=1
+EFC_2464_1592913036=1
+PYTHONSTARTUP=c:\Users\kumar\AppData\Roaming\Code\User\workspaceStorage\3f79057708b8b6784ec0603c206f316f\ms-python.python\pythonrc.py
+USERDOMAIN=LAPTOP-9AMORBQI
+TERM_PROGRAM=vscode
+HOMEDRIVE=C:
+Path=C:/Program Files/Git/mingw64/libexec/git-core;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\kumar\bin;c:\Users\kumar\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\debugCommand;c:\Users\kumar\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\copilotCli;C:\Program Files\Java\jdk-25\bin;C:\Program Files\Docker\Docker\resources\bin;D:\Program Files\nodejs\;C:\Program Files\Tesseract-OCR;C:\Windows\System32;C:\Users\kumar\AppData\Local\Programs\Python\Python310\Scripts\;C:\Users\kumar\AppData\Local\Programs\Python\Python310\;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\kumar\AppData\Local\Programs\Python\Python313\Scripts\;C:\Users\kumar\AppData\Local\Programs\Python\Python313\;C:\Users\kumar\AppData\Local\Microsoft\WindowsApps;C:\Users\kumar\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\JetBrains\PyCharm 2024.3.4\bin;;C:\Program Files\JetBrains\PyCharm Community Edition 2024.3.4\bin;;C:\Users\kumar\AppData\Roaming\npm;C:\Program Files\Git\bin;C:\Program Files\Git\cmd;C:\Users\kumar\AppData\Local\Programs\Ollama;D:\Users\kumar\AppData\Local\Programs\Antigravity\bin;D:\iverilog\bin;D:\gtkwave64\bin;C:\Users\kumar\AppData\Local\Kingsoft\WPS Office\12.1.0.27458\clitool;D:\msys64\ucrt64\bin;;D:\altera\25.1std\questa_fse\win64;c:\Users\kumar\.vscode\extensions\vscjava.vscode-java-debug-0.59.0\bundled\scripts\noConfigScripts
+WPSCLI_HOME=C:\Users\kumar\AppData\Local\Kingsoft\WPS Office\12.1.0.27458\clitool
+PROCESSOR_LEVEL=6
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 154 Stepping 3, GenuineIntel
+TMPDIR=D:\temp
+VSCODE_GIT_ASKPASS_EXTRA_ARGS=
+PROMPT=$P$G
+TERM_PROGRAM_VERSION=1.108.0
+VSCODE_GIT_ASKPASS_MAIN=c:\Users\kumar\AppData\Local\Programs\Microsoft VS Code\resources\app\extensions\git\dist\askpass-main.js
+ProgramFiles(x86)=C:\Program Files (x86)
+PUBLIC=C:\Users\Public
+NUMBER_OF_PROCESSORS=12
+FPS_BROWSER_USER_PROFILE_STRING=Default
+CommonProgramFiles=C:\Program Files (x86)\Common Files
+VSCODE_NONCE=508827e1-36b4-4c20-b85b-ecb73a478d8a
+EFC_2464_2283032206=1
+CHROME_CRASHPAD_PIPE_NAME=\\.\pipe\crashpad_22940_QKTNPQTUVUOPOZVK
+VSCODE_JAVA_EXEC=C:\Program Files\Java\jdk-25\bin\java
+LM_LICENSE_FILE=D:\Questa_License\LR-178665_License.dat
+USERDOMAIN_ROAMINGPROFILE=LAPTOP-9AMORBQI
+ProgramW6432=C:\Program Files
+CommonProgramFiles(x86)=C:\Program Files (x86)\Common Files
+ProgramFiles=C:\Program Files (x86)
+PLINK_PROTOCOL=ssh
+PyCharm Community Edition=C:\Program Files\JetBrains\PyCharm Community Edition 2024.3.4\bin;
+VSCODE_GIT_IPC_HANDLE=\\.\pipe\vscode-git-bdb59d1e70-sock
+VSCODE_GIT_ASKPASS_NODE=C:\Users\kumar\AppData\Local\Programs\Microsoft VS Code\Code.exe
+SystemRoot=C:\WINDOWS
+VSCODE_JDWP_ADAPTER_ENDPOINTS=c:\Users\kumar\.vscode\extensions\vscjava.vscode-java-debug-0.59.0\.noConfigDebugAdapterEndpoints\endpoint-55301730ba2a092e.txt
+HOME=C:\Users\kumar
+EFC_2464_4126798990=1
+CommonProgramW6432=C:\Program Files\Common Files
+ZES_ENABLE_SYSMAN=1
+LOGONSERVER=\\LAPTOP-9AMORBQI
+USERPROFILE=C:\Users\kumar
+EFC_2464_3789132940=1
+COLORTERM=truecolor
+EFC_2464_2775293581=1
+APPDATA=C:\Users\kumar\AppData\Roaming
+ProgramData=C:\ProgramData
+PSModulePath=C:\Program Files\WindowsPowerShell\Modules;C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules
+USERNAME=kumar
+PROCESSOR_ARCHITEW6432=AMD64
+FPS_BROWSER_APP_PROFILE_STRING=Internet Explorer
+PROCESSOR_ARCHITECTURE=x86
+OS=Windows_NT
+ComSpec=C:\WINDOWS\system32\cmd.exe
+SystemDrive=C:
+windir=C:\WINDOWS
+OLLAMA_MODELS=D:\ollama_models
+ALLUSERSPROFILE=C:\ProgramData
+
+
+------------
+Diagnostic: File system
+Skipped: False
+Success: True
+Exception: None
+Log:
+Temporary directory is 'D:\temp\'...
+Checking basic file I/O...
+Writing to temporary file 'D:\temp\786a47ea8e40aa90cb241029'... OK
+Reading from temporary file 'D:\temp\786a47ea8e40aa90cb241029'... OK
+Deleting temporary file 'D:\temp\786a47ea8e40aa90cb241029'... OK
+Testing IFileSystem instance...
+UserHomePath: C:\Users\kumar
+UserDataDirectoryPath: C:\Users\kumar\.gcm
+GetCurrentDirectory(): D:\VLSI_Projects\Configurable-FIFO-IP
+
+------------
+Diagnostic: Networking
+Skipped: False
+Success: True
+Exception: None
+Log:
+Checking networking and HTTP stack...
+Creating HTTP client... OK
+IsNetworkAvailable: True
+Sending HEAD request to http://example.com...Sending HEAD request to https://example.com... OK
+Acquiring free TCP port... OK
+Testing local HTTP loopback connections...
+Creating new HTTP listener for http://localhost:64631/... OK
+Waiting for loopback connection... OK
+Writing response... OK
+Waiting for response data... OK
+Loopback connection data OK
+
