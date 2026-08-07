@@ -2,11 +2,11 @@
 `define FIFO_BASE_TEST_SV
 
 import fifo_pkg::*;
-
+import fifo_verif_pkg::*;
 module fifo_base_test
 #(
-    parameter int DATA_WIDTH = DEFAULT_DATA_WIDTH,
-    parameter int FIFO_DEPTH = DEFAULT_FIFO_DEPTH
+    parameter int DATA_WIDTH = fifo_pkg::DEFAULT_DATA_WIDTH,
+    parameter int FIFO_DEPTH = fifo_pkg::DEFAULT_FIFO_DEPTH
 );
 
     // Clock and reset signals
@@ -46,14 +46,12 @@ module fifo_base_test
         .overflow(fifo_interface.overflow),
         .underflow(fifo_interface.underflow),
         .occupancy(fifo_interface.occupancy),
-        .debug_status(fifo_interface.debug_status)
+        .debug_status(fifo_interface.debug_status),
+        .dbg_operation(fifo_interface.dbg_operation)      
     );
 
     // Instantiate the verification environment
-    fifo_environment #(
-        .DATA_WIDTH(DATA_WIDTH),
-        .FIFO_DEPTH(FIFO_DEPTH)
-    ) env;
+    fifo_environment #(DATA_WIDTH,FIFO_DEPTH) env;
 
     //=========================================================
     // Clock Generation

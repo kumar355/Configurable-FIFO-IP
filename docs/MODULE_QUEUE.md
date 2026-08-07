@@ -1,25 +1,60 @@
 # Configurable FIFO IP
 
-Version: 1.0
+Version: 2.0
 
 Status: Active Development
 
+Language: SystemVerilog IEEE 1800
+
+Repository Type: Industrial Reusable RTL IP
+
 ------------------------------------------------------------------------------
 
-# Development Rules
+# Development Philosophy
 
-Only one RTL module shall be actively developed at a time.
+This repository follows an industrial semiconductor development workflow.
 
-A module is considered complete only after
+The architecture is reviewed before RTL generation.
 
-- RTL generation
-- Architecture review
-- Compilation
-- Initial simulation
-- Verification review
-- Git commit
+RTL is frozen before verification begins.
 
-No dependent module shall begin until its prerequisite modules are complete.
+Verification architecture follows the frozen RTL architecture.
+
+No module is considered complete until all required review stages have passed.
+
+------------------------------------------------------------------------------
+
+# Engineering Workflow
+
+Every module SHALL pass the following stages.
+
+1. Architecture Review
+
+2. Interface Review
+
+3. RTL Generation
+
+4. Internal Code Review
+
+5. Dependency Review
+
+6. Compilation
+
+7. Lint Review
+
+8. Initial Simulation
+
+9. Directed Verification
+
+10. Random Verification
+
+11. Coverage Review
+
+12. Documentation Review
+
+13. Git Commit
+
+Only after all stages pass shall the module be marked COMPLETED.
 
 ------------------------------------------------------------------------------
 
@@ -27,31 +62,60 @@ No dependent module shall begin until its prerequisite modules are complete.
 
 NOT_STARTED
 
-IN_PROGRESS
+ARCHITECTURE_REVIEW
 
-GENERATED
+INTERFACE_REVIEW
 
-REVIEW_REQUIRED
+RTL_GENERATED
+
+CODE_REVIEW
 
 READY_TO_COMPILE
 
 COMPILED
 
+SIMULATION_PASSED
+
+VERIFICATION_IN_PROGRESS
+
 VERIFIED
+
+DOCUMENTED
 
 COMPLETED
 
 ------------------------------------------------------------------------------
 
-# Phase 1
+# Repository Development Rules
 
-Common RTL
+Only ONE module may be actively modified.
+
+Dependent modules may NOT be modified simultaneously.
+
+Frozen modules may receive ONLY
+
+• bug fixes
+
+• interface corrections
+
+• documentation updates
+
+Architectural changes require project review.
 
 ------------------------------------------------------------------------------
 
+##############################################################################
+#
+# PHASE 1
+#
+# COMMON RTL
+#
+##############################################################################
+
+------------------------------------------------------------------------------
 Module
 
-fifo_pkg.sv
+rtl/common/fifo_pkg.sv
 
 Purpose
 
@@ -61,43 +125,86 @@ Dependencies
 
 None
 
-Current Status
+Architecture
 
-COMPLETED
-
-------------------------------------------------------------------------------
-
-Module
-
-fifo_mem.sv
-
-Purpose
-
-Reusable parameterized memory
-
-Dependencies
-
-fifo_pkg.sv
+FROZEN
 
 Current Status
 
 COMPLETED
 
-------------------------------------------------------------------------------
+Review Status
 
-# Phase 2
+PASSED
 
-Synchronous FIFO
+Compilation
+
+PASSED
+
+Simulation
+
+N/A
+
+Verification
+
+N/A
 
 ------------------------------------------------------------------------------
 
 Module
 
-sync_fifo_ctrl.sv
+rtl/common/fifo_mem.sv
 
 Purpose
 
-FIFO controller
+Reusable FIFO memory
+
+Dependencies
+
+fifo_pkg.sv
+
+Architecture
+
+FROZEN
+
+Current Status
+
+COMPLETED
+
+Review Status
+
+PASSED
+
+Compilation
+
+PASSED
+
+Simulation
+
+PASSED
+
+Verification
+
+PASSED
+
+------------------------------------------------------------------------------
+
+##############################################################################
+#
+# PHASE 2
+#
+# SYNCHRONOUS FIFO
+#
+##############################################################################
+
+------------------------------------------------------------------------------
+Module
+
+rtl/sync/sync_fifo_ctrl.sv
+
+Purpose
+
+Synchronous FIFO Controller
 
 Dependencies
 
@@ -105,9 +212,33 @@ fifo_pkg.sv
 
 fifo_mem.sv
 
+Architecture
+
+UNDER REVIEW
+
 Current Status
+
+RTL_GENERATED
+
+Compilation
+
+PARTIAL
+
+Simulation
+
+FAILED
+
+Verification
 
 NOT_STARTED
+
+Known Issues
+
+• Debug interface inconsistencies
+
+• Verification architecture mismatch
+
+• Occupancy synchronization review required
 
 Priority
 
@@ -117,11 +248,11 @@ CRITICAL
 
 Module
 
-sync_fifo_top.sv
+rtl/sync/sync_fifo_top.sv
 
 Purpose
 
-Top level integration
+Top Level Integration
 
 Dependencies
 
@@ -129,7 +260,23 @@ sync_fifo_ctrl.sv
 
 fifo_mem.sv
 
+Architecture
+
+UNDER REVIEW
+
 Current Status
+
+RTL_GENERATED
+
+Compilation
+
+PARTIAL
+
+Simulation
+
+FAILED
+
+Verification
 
 NOT_STARTED
 
@@ -139,27 +286,42 @@ HIGH
 
 ------------------------------------------------------------------------------
 
-# Phase 3
-
-Asynchronous FIFO
+##############################################################################
+#
+# PHASE 3
+#
+# ASYNCHRONOUS FIFO
+#
+##############################################################################
 
 ------------------------------------------------------------------------------
-
 Module
 
-gray_counter.sv
+rtl/async/gray_counter.sv
 
 Purpose
 
-Gray code utilities
+Gray Counter
 
 Dependencies
 
 fifo_pkg.sv
 
+Architecture
+
+UNDER REVIEW
+
 Current Status
 
-NOT_STARTED
+RTL_GENERATED
+
+Compilation
+
+NOT VERIFIED
+
+Simulation
+
+NOT VERIFIED
 
 Priority
 
@@ -169,19 +331,31 @@ HIGH
 
 Module
 
-synchronizer.sv
+rtl/async/synchronizer.sv
 
 Purpose
 
-Clock domain synchronizer
+Clock Domain Synchronizer
 
 Dependencies
 
 None
 
+Architecture
+
+UNDER REVIEW
+
 Current Status
 
-NOT_STARTED
+RTL_GENERATED
+
+Compilation
+
+NOT VERIFIED
+
+Simulation
+
+NOT VERIFIED
 
 Priority
 
@@ -191,11 +365,11 @@ HIGH
 
 Module
 
-async_fifo_ctrl.sv
+rtl/async/async_fifo_ctrl.sv
 
 Purpose
 
-Asynchronous FIFO controller
+Asynchronous FIFO Controller
 
 Dependencies
 
@@ -207,7 +381,23 @@ fifo_pkg.sv
 
 fifo_mem.sv
 
+Architecture
+
+UNDER REVIEW
+
 Current Status
+
+RTL_GENERATED
+
+Compilation
+
+PARTIAL
+
+Simulation
+
+NOT VERIFIED
+
+Verification
 
 NOT_STARTED
 
@@ -219,11 +409,11 @@ CRITICAL
 
 Module
 
-async_fifo_top.sv
+rtl/async/async_fifo_top.sv
 
 Purpose
 
-Top level integration
+Top Level Integration
 
 Dependencies
 
@@ -231,7 +421,23 @@ async_fifo_ctrl.sv
 
 fifo_mem.sv
 
+Architecture
+
+UNDER REVIEW
+
 Current Status
+
+RTL_GENERATED
+
+Compilation
+
+PARTIAL
+
+Simulation
+
+NOT VERIFIED
+
+Verification
 
 NOT_STARTED
 
@@ -241,91 +447,252 @@ HIGH
 
 ------------------------------------------------------------------------------
 
-# Phase 4
+##############################################################################
+#
+# PHASE 4
+#
+# INTERFACE
+#
+##############################################################################
 
-Verification Environment
+------------------------------------------------------------------------------
+Module
+
+interfaces/fifo_if.sv
+
+Purpose
+
+Shared Verification Interface
+
+Dependencies
+
+fifo_pkg.sv
+
+Architecture
+
+UNDER REVIEW
+
+Current Status
+
+RTL_GENERATED
+
+Compilation
+
+PASSED
+
+Simulation
+
+NOT VERIFIED
+
+Verification
+
+NOT_STARTED
 
 ------------------------------------------------------------------------------
 
-transaction.sv
+##############################################################################
+#
+# PHASE 5
+#
+# VERIFICATION
+#
+##############################################################################
 
-NOT_STARTED
+Current Policy
 
-config.sv
+Verification SHALL NOT define RTL behavior.
 
-NOT_STARTED
+Verification SHALL observe RTL behavior.
 
-generator.sv
-
-NOT_STARTED
-
-driver.sv
-
-NOT_STARTED
-
-monitor.sv
-
-NOT_STARTED
-
-reference_model.sv
-
-NOT_STARTED
-
-scoreboard.sv
-
-NOT_STARTED
-
-environment.sv
-
-NOT_STARTED
-
-base_test.sv
-
-NOT_STARTED
+Reference Model SHALL match RTL architecture.
 
 ------------------------------------------------------------------------------
 
-# Phase 5
+Module
 
-Assertions
+fifo_transaction.sv
+
+Status
+
+GENERATED
+
+Review
+
+REQUIRED
 
 ------------------------------------------------------------------------------
+
+Module
+
+fifo_generator.sv
+
+Status
+
+GENERATED
+
+Review
+
+REQUIRED
+
+------------------------------------------------------------------------------
+
+Module
+
+fifo_driver.sv
+
+Status
+
+GENERATED
+
+Review
+
+REQUIRED
+
+------------------------------------------------------------------------------
+
+Module
+
+fifo_monitor.sv
+
+Status
+
+GENERATED
+
+Review
+
+REQUIRED
+
+------------------------------------------------------------------------------
+
+Module
+
+fifo_reference_model.sv
+
+Status
+
+GENERATED
+
+Review
+
+REQUIRED
+
+Known Issue
+
+Behavior mismatch with current RTL.
+
+------------------------------------------------------------------------------
+
+Module
+
+fifo_scoreboard.sv
+
+Status
+
+GENERATED
+
+Review
+
+REQUIRED
+
+Known Issue
+
+Comparison mismatches.
+
+------------------------------------------------------------------------------
+
+Module
+
+fifo_environment.sv
+
+Status
+
+GENERATED
+
+Review
+
+REQUIRED
+
+------------------------------------------------------------------------------
+
+Module
+
+fifo_base_test.sv
+
+Status
+
+GENERATED
+
+Review
+
+REQUIRED
+
+------------------------------------------------------------------------------
+
+##############################################################################
+#
+# PHASE 6
+#
+# ASSERTIONS
+#
+##############################################################################
 
 fifo_assertions.sv
 
+Status
+
 NOT_STARTED
 
-------------------------------------------------------------------------------
+Dependency
 
-# Phase 6
-
-Coverage
+Frozen RTL
 
 ------------------------------------------------------------------------------
+
+##############################################################################
+#
+# PHASE 7
+#
+# FUNCTIONAL COVERAGE
+#
+##############################################################################
 
 fifo_coverage.sv
 
+Status
+
 NOT_STARTED
 
-------------------------------------------------------------------------------
+Dependency
 
-# Phase 7
-
-Regression
+Frozen Verification
 
 ------------------------------------------------------------------------------
+
+##############################################################################
+#
+# PHASE 8
+#
+# REGRESSION
+#
+##############################################################################
 
 directed_tests.sv
 
 NOT_STARTED
 
+------------------------------------------------------------------------------
+
 random_tests.sv
 
 NOT_STARTED
 
+------------------------------------------------------------------------------
+
 stress_tests.sv
 
 NOT_STARTED
+
+------------------------------------------------------------------------------
 
 corner_case_tests.sv
 
@@ -333,82 +700,172 @@ NOT_STARTED
 
 ------------------------------------------------------------------------------
 
-# Current Development Target
+##############################################################################
+#
+# CURRENT DEVELOPMENT TARGET
+#
+##############################################################################
+
+PROJECT ARCHITECTURE REVIEW
+
+Current Module
 
 sync_fifo_ctrl.sv
 
+Goal
+
+Review existing implementation.
+
+Fix architecture inconsistencies.
+
+Freeze controller architecture.
+
+Do NOT redesign interfaces.
+
+Do NOT modify completed modules.
+
+Compile after every change.
+
+Simulate after compilation.
+
+Only after sync_fifo_ctrl is frozen may verification be updated.
+
 ------------------------------------------------------------------------------
 
-# Repository Completion Checklist
+##############################################################################
+#
+# PROJECT COMPLETION CHECKLIST
+#
+##############################################################################
 
 Common RTL
 
-COMPLETE
+✔ Complete
 
-Synchronous FIFO
+------------------------------------------------------------------------------
 
-PENDING
+Synchronous FIFO RTL
 
-Asynchronous FIFO
+⏳ Architecture Review
 
-PENDING
+------------------------------------------------------------------------------
+
+Asynchronous FIFO RTL
+
+⏳ Architecture Review
+
+------------------------------------------------------------------------------
 
 Verification
 
-PENDING
+⏳ Pending RTL Freeze
+
+------------------------------------------------------------------------------
 
 Assertions
 
-PENDING
+⏳ Pending
+
+------------------------------------------------------------------------------
 
 Coverage
 
-PENDING
+⏳ Pending
+
+------------------------------------------------------------------------------
 
 Regression
 
-PENDING
+⏳ Pending
+
+------------------------------------------------------------------------------
 
 Documentation
 
-IN_PROGRESS
+⏳ In Progress
 
 ------------------------------------------------------------------------------
 
-# Claude Instructions
+##############################################################################
+#
+# CLAUDE DEVELOPMENT RULES
+#
+##############################################################################
 
-Before generating any RTL
+Before writing ANY code
 
-Read
+1. Read CLAUDE.md
 
-CLAUDE.md
+2. Read PROJECT_SPEC.md
 
-Read
+3. Read MODULE_QUEUE.md
 
-docs/PROJECT_SPEC.md
+4. Read every dependency.
 
-Read
+5. Read every parent module.
 
-docs/MODULE_QUEUE.md
+6. Read every interface.
 
-Read every dependency of the requested module.
+7. Read every package.
 
-Generate only one module.
+8. Understand the architecture before writing code.
 
-Do not modify completed modules.
+Never modify frozen modules.
 
-If a required dependency is missing
+Never redesign architecture.
 
-Stop.
+Never invent interfaces.
 
-Report the missing dependency.
+Never remove features.
 
-Do not invent architecture.
+Never silently change behavior.
 
-------------------------------------------------------------------------------
+Generate ONLY ONE module per response.
 
-# Next Module
+After generation
+
+Perform
+
+Architecture Review
+
+↓
+
+Compilation Review
+
+↓
+
+Simulation Review
+
+↓
+
+Verification Review
+
+↓
+
+Stop
+
+Wait for user approval before continuing.
+
+##############################################################################
+#
+# NEXT TASK
+#
+##############################################################################
+
+Project Architecture Review
+
+First Module
 
 rtl/sync/sync_fifo_ctrl.sv
 
-------------------------------------------------------------------------------
+Objective
+
+Review the existing implementation.
+
+Identify architectural inconsistencies.
+
+Recommend fixes.
+
+Do NOT generate replacement RTL until architecture review is complete.
+
+##############################################################################

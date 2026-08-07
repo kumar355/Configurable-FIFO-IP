@@ -1,3 +1,10 @@
+`ifndef FIFO_SCOREBOARD_SV
+`define FIFO_SCOREBOARD_SV
+
+import fifo_pkg::*;
+
+class fifo_scoreboard #(parameter int DATA_WIDTH = DEFAULT_DATA_WIDTH);
+
 mailbox #(fifo_transaction #(DATA_WIDTH)) expected_mbx;
 mailbox #(fifo_transaction #(DATA_WIDTH)) actual_mbx;
 
@@ -41,8 +48,11 @@ function bit compare_transaction(
     input fifo_transaction #(DATA_WIDTH) expected,
     input fifo_transaction #(DATA_WIDTH) actual
 );
-    string diff = "";
-    bit match = 1;
+    string diff;
+    bit match;
+
+    diff = "";
+    match = 1;
 
     if (expected.operation != actual.operation) begin
         match = 0;
@@ -80,14 +90,28 @@ function bit compare_transaction(
         };
     end
 
-    if (expected.debug != actual.debug) begin
+    // Compare only fields visible outside the DUT
+
+    if (expected.debug.occupancy != actual.debug.occupancy) begin
         match = 0;
         diff = {
             diff,
-            "debug expected=",
-            expected.debug_to_string(),
+            "occupancy expected=",
+            $sformatf("%0d", expected.debug.occupancy),
             " actual=",
-            actual.debug_to_string(),
+            $sformatf("%0d", actual.debug.occupancy),
+            "; "
+        };
+    end
+
+    if (expected.debug.last_error != actual.debug.last_error) begin
+        match = 0;
+        diff = {
+            diff,
+            "last_error expected=",
+            expected.error_to_string(expected.debug.last_error),
+            " actual=",
+            actual.error_to_string(actual.debug.last_error),
             "; "
         };
     end
@@ -120,18 +144,20 @@ function bit compare_transaction(
 endfunction
 
 task compare_next();
+
+    fifo_transaction #(DATA_WIDTH) expected;
+    fifo_transaction #(DATA_WIDTH) actual;
+
     if (expected_mbx == null || actual_mbx == null) begin
         $error("[%s] Mailboxes must be assigned before compare_next()", name);
         return;
     end
 
-    fifo_transaction #(DATA_WIDTH) expected;
-    fifo_transaction #(DATA_WIDTH) actual;
-
     expected_mbx.get(expected);
     actual_mbx.get(actual);
 
     compare_transaction(expected, actual);
+
 endtask
 
 task compare_n(int unsigned count);
@@ -154,3 +180,6 @@ function string summary_string();
         failed
     );
 endfunction
+endclass
+
+`endif

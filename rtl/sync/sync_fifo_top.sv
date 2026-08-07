@@ -34,13 +34,15 @@ module sync_fifo_top
 
     output logic [$clog2(FIFO_DEPTH):0] occupancy,
 
-    output logic [31:0] debug_status
+    output logic [31:0] debug_status,
+    output fifo_operation_t dbg_operation
 );
 
     localparam int ADDR_WIDTH = $clog2(FIFO_DEPTH);
 
     logic                wr_req;
     logic                rd_req;
+    fifo_operation_t dbg_operation_internal;
     logic [ADDR_WIDTH-1:0] mem_wr_addr;
     logic [ADDR_WIDTH-1:0] mem_rd_addr;
     logic [DATA_WIDTH-1:0] mem_wr_data;
@@ -86,8 +88,10 @@ module sync_fifo_top
 
         .rd_data(dout),
 
-        .debug_status(debug_status)
+        .debug_status(debug_status),
+        .dbg_operation(dbg_operation_internal)
     );
+    assign dbg_operation = dbg_operation_internal;
 
     fifo_mem #(
         .DATA_WIDTH(DATA_WIDTH),

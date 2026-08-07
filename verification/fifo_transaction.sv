@@ -56,16 +56,41 @@ class fifo_transaction #(parameter int DATA_WIDTH = DEFAULT_DATA_WIDTH);
         operation = OP_IDLE;
         write_data = '0;
         read_data = '0;
-        status = '{default:'0};
-        debug = '{default:'0};
+        status = '{
+            full         : 0,
+            empty        : 0,
+            almost_full  : 0,
+            almost_empty : 0,
+            overflow     : 0,
+            underflow    : 0
+        };
+        debug = '{
+            wr_ptr      : 0,
+            rd_ptr      : 0,
+            occupancy   : 0,
+            last_error  : ERR_NONE
+        };
     endfunction
 
     function void reset();
         operation = OP_IDLE;
         write_data = '0;
         read_data = '0;
-        status = '{default:'0};
-        debug = '{default:'0};
+        status = '{
+            full         : 0,
+            empty        : 0,
+            almost_full  : 0,
+            almost_empty : 0,
+            overflow     : 0,
+            underflow    : 0
+        };
+
+        debug = '{
+            wr_ptr      : 0,
+            rd_ptr      : 0,
+            occupancy   : 0,
+            last_error  : ERR_NONE
+        };
         valid = 1'b1;
     endfunction
 

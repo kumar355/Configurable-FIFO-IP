@@ -10,7 +10,7 @@ class fifo_environment #(parameter int DATA_WIDTH = DEFAULT_DATA_WIDTH,
     virtual fifo_if.MONITOR  mon_vif;
 
     fifo_generator #(DATA_WIDTH) generator;
-    fifo_driver #(DATA_WIDTH) driver;
+    fifo_driver #(DATA_WIDTH, FIFO_DEPTH) driver;
     fifo_monitor #(DATA_WIDTH) monitor;
     fifo_reference_model #(DATA_WIDTH, FIFO_DEPTH) ref_model;
     fifo_scoreboard #(DATA_WIDTH) scoreboard;
@@ -93,6 +93,29 @@ class fifo_environment #(parameter int DATA_WIDTH = DEFAULT_DATA_WIDTH,
         $display("[%s] Monitor observed %0d transactions", name, monitor.get_observed_count());
         $display("[%s] Reference model processed %0d transactions", name, ref_model.get_processed_count());
         scoreboard.report();
+    endtask
+    task report();
+
+        $display("========================================");
+        $display("[%s] ENVIRONMENT REPORT", name);
+        $display("========================================");
+
+        $display("Generator generated      : %0d",
+                generator.get_generated_count());
+
+        $display("Driver drove             : %0d",
+                driver.get_driven_count());
+
+        $display("Monitor observed         : %0d",
+                monitor.get_observed_count());
+
+        $display("Reference Model processed: %0d",
+                ref_model.get_processed_count());
+
+        scoreboard.report();
+
+        $display("========================================");
+
     endtask
 
 endclass

@@ -49,7 +49,10 @@ class fifo_generator #(parameter int DATA_WIDTH = DEFAULT_DATA_WIDTH);
         endcase
     endfunction
 
-    function bit generate_transaction(output fifo_transaction #(DATA_WIDTH) txn, int unsigned index = 0);
+    function bit generate_transaction(
+            output fifo_transaction #(DATA_WIDTH) txn,
+            input int unsigned index
+        );
         if (txn == null)
             txn = new($sformatf("%s_txn_%0d", name, index));
 
@@ -58,14 +61,43 @@ class fifo_generator #(parameter int DATA_WIDTH = DEFAULT_DATA_WIDTH);
         txn.name = $sformatf("%s_txn_%0d", name, index);
         txn.valid = 1'b1;
 
-        if (!txn.randomize() with { operation == txn.operation; }) begin
-            return 0;
-        end
+        case (txn.operation)
+
+            OP_IDLE: begin
+                // nothing
+            end
+
+            OP_WRITE: begin
+                txn.write_data = $urandom();
+            end
+
+            OP_READ: begin
+                // nothing
+            end
+
+            OP_READ_WRITE: begin
+                txn.write_data = $urandom();
+            end
+
+            OP_FLUSH: begin
+                // nothing
+            end
+
+            OP_OVERFLOW: begin
+                txn.write_data = $urandom();
+            end
+
+            OP_UNDERFLOW: begin
+                // nothing
+            end
+
+        endcase
 
         return 1;
+
     endfunction
 
-    task generate();
+    task generate_transactions();
         if (out_mb == null)
             out_mb = new();
 
@@ -82,7 +114,7 @@ class fifo_generator #(parameter int DATA_WIDTH = DEFAULT_DATA_WIDTH);
     endtask
 
     task run();
-        generate();
+        generate_transactions();
     endtask
 
 endclass

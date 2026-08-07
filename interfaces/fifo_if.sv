@@ -1,3 +1,5 @@
+import fifo_pkg::*;
+
 interface fifo_if
 #(
     parameter DATA_WIDTH = 32,
@@ -53,6 +55,7 @@ interface fifo_if
     logic [ADDR_WIDTH:0] occupancy;
 
     logic [31:0] debug_status;
+    fifo_operation_t dbg_operation;
 
     //==========================================================
     // Driver Clocking Block
@@ -79,6 +82,7 @@ interface fifo_if
         input underflow;
         input occupancy;
         input debug_status;
+        input dbg_operation;
 
     endclocking
 
@@ -112,6 +116,7 @@ interface fifo_if
 
         input occupancy;
         input debug_status;
+        input dbg_operation;
 
     endclocking
 
@@ -147,7 +152,8 @@ interface fifo_if
         output underflow,
 
         output occupancy,
-        output debug_status
+        output debug_status,
+        output dbg_operation
     );
 
     //==========================================================

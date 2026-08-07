@@ -1,0 +1,22 @@
+BEGIN 3:fifo_if:fast__2:work
+    flush :  1:fifo_base_test:fast:work
+    underflow :  1:fifo_base_test:fast:work
+    ae_threshold :  1:fifo_base_test:fast:work
+    debug_status :  1:fifo_base_test:fast:work
+    full :  1:fifo_base_test:fast:work
+    rd_en :  1:fifo_base_test:fast:work
+    almost_full :  1:fifo_base_test:fast:work
+    enable :  1:fifo_base_test:fast:work
+    overflow :  1:fifo_base_test:fast:work
+    af_threshold :  1:fifo_base_test:fast:work
+    occupancy :  1:fifo_base_test:fast:work
+    dout :  1:fifo_base_test:fast:work
+    wr_en :  1:fifo_base_test:fast:work
+    dbg_operation :  1:fifo_base_test:fast:work
+    empty :  1:fifo_base_test:fast:work
+    din :  1:fifo_base_test:fast:work
+    almost_empty :  1:fifo_base_test:fast:work
+END 
+BEGIN 1:fifo_base_test:fast:work
+    env :  1:fifo_base_test:fast:work
+END 

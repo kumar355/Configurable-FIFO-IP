@@ -3,7 +3,10 @@
 
 import fifo_pkg::*;
 
-class fifo_driver #(parameter int DATA_WIDTH = DEFAULT_DATA_WIDTH);
+class fifo_driver #(
+    parameter int DATA_WIDTH = DEFAULT_DATA_WIDTH,
+    parameter int FIFO_DEPTH = DEFAULT_FIFO_DEPTH
+);
 
     virtual fifo_if.DRIVER vif;
     mailbox #(fifo_transaction #(DATA_WIDTH)) in_mb;
@@ -49,8 +52,8 @@ class fifo_driver #(parameter int DATA_WIDTH = DEFAULT_DATA_WIDTH);
         vif.drv_cb.din <= '0;
         vif.drv_cb.enable <= 1'b0;
         vif.drv_cb.flush <= 1'b0;
-        vif.drv_cb.af_threshold <= '0;
-        vif.drv_cb.ae_threshold <= '0;
+        vif.drv_cb.af_threshold <= DATA_WIDTH'(16-1);   // or FIFO_DEPTH-1 if you add FIFO_DEPTH as a parameter
+        vif.drv_cb.ae_threshold <= DATA_WIDTH'(1);
     endtask
 
     task drive_transaction(fifo_transaction #(DATA_WIDTH) txn);
@@ -66,6 +69,8 @@ class fifo_driver #(parameter int DATA_WIDTH = DEFAULT_DATA_WIDTH);
         vif.drv_cb.din <= '0;
         vif.drv_cb.enable <= 1'b1;
         vif.drv_cb.flush <= 1'b0;
+        vif.drv_cb.af_threshold <= FIFO_DEPTH-1;
+        vif.drv_cb.ae_threshold <= 1;
         // TODO: integrate threshold fields into fifo_transaction and drive them here.
         // Leave af_threshold/ae_threshold at their default values unless the transaction carries explicit settings.
 

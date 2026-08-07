@@ -1,0 +1,12 @@
+2 8 fifo_pkg 4 fast 46 D:/VLSI_Projects/Configurable-FIFO-IP/sim/work 0 0 0 0 111 0
+1 14 fifo_verif_pkg 4 fast 46 D:/VLSI_Projects/Configurable-FIFO-IP/sim/work 0 0 655360 0 3234 0
+1 22 fifo_base_test_sv_unit 4 fast 46 D:/VLSI_Projects/Configurable-FIFO-IP/sim/work 0 0 0 655360 0 0
+2 21 sync_fifo_top_sv_unit 4 fast 46 D:/VLSI_Projects/Configurable-FIFO-IP/sim/work 0 0 0 0 0 0
+2 22 sync_fifo_ctrl_sv_unit 4 fast 46 D:/VLSI_Projects/Configurable-FIFO-IP/sim/work 0 0 0 0 0 0
+2 16 fifo_mem_sv_unit 4 fast 46 D:/VLSI_Projects/Configurable-FIFO-IP/sim/work 0 0 0 0 0 0
+2 7 fifo_if 5 synth 46 D:/VLSI_Projects/Configurable-FIFO-IP/sim/work 0 0 0 0 0 0
+2 7 fifo_if 7 fast__2 46 D:/VLSI_Projects/Configurable-FIFO-IP/sim/work 0 0 0 0 477 0
+2 14 sync_fifo_ctrl 4 fast 46 D:/VLSI_Projects/Configurable-FIFO-IP/sim/work 0 0 0 0 520 0
+2 8 fifo_mem 4 fast 46 D:/VLSI_Projects/Configurable-FIFO-IP/sim/work 0 0 131072 0 200 0
+2 13 sync_fifo_top 4 fast 46 D:/VLSI_Projects/Configurable-FIFO-IP/sim/work 0 0 131072 0 825 0
+1 14 fifo_base_test 4 fast 46 D:/VLSI_Projects/Configurable-FIFO-IP/sim/work 0 0 131072 655360 1458 0

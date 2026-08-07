@@ -62,33 +62,58 @@ class fifo_reference_model #(parameter int DATA_WIDTH = DEFAULT_DATA_WIDTH,
     endfunction
 
     function logic [DATA_WIDTH-1:0] dequeue(output bit success);
+
+        logic [DATA_WIDTH-1:0] data;
+
         if (occupancy == 0) begin
             success = 0;
             return '0;
         end
 
         success = 1;
-        logic [DATA_WIDTH-1:0] data = fifo_mem[rd_ptr];
+
+        data = fifo_mem[rd_ptr];
+
         rd_ptr = (rd_ptr + 1) % FIFO_DEPTH;
         occupancy -= 1;
+
         return data;
+
     endfunction
 
     function fifo_transaction #(DATA_WIDTH) build_expected(
         input fifo_transaction #(DATA_WIDTH) observed,
         int unsigned index = 0
     );
-        fifo_transaction #(DATA_WIDTH) expected = new($sformatf("%s_expected_%0d", name, index));
+
+        fifo_transaction #(DATA_WIDTH) expected;
+
+        bit read_success;
+        bit write_success;
+
+        expected = new($sformatf("%s_expected_%0d", name, index));
+
         expected.name = $sformatf("%s_expected_%0d", name, index);
         expected.valid = 1'b1;
         expected.operation = observed.operation;
         expected.write_data = observed.write_data;
         expected.read_data = '0;
-        expected.status = '{default: '0};
-        expected.debug = '{default: '0};
+        expected.status = '{
+            full         : 0,
+            empty        : 0,
+            almost_full  : 0,
+            almost_empty : 0,
+            overflow     : 0,
+            underflow    : 0
+        };
 
-        bit read_success;
-        bit write_success;
+        expected.debug = '{
+            wr_ptr      : 0,
+            rd_ptr      : 0,
+            occupancy   : 0,
+            last_error  : ERR_NONE
+        };
+
         expected.debug.wr_ptr = wr_ptr;
         expected.debug.rd_ptr = rd_ptr;
         expected.debug.occupancy = occupancy;
@@ -114,16 +139,37 @@ class fifo_reference_model #(parameter int DATA_WIDTH = DEFAULT_DATA_WIDTH,
                 end
             end
             OP_READ_WRITE: begin
-                expected.read_data = dequeue(read_success);
-                if (!read_success) begin
+
+                // Same behavior as sync_fifo_ctrl
+
+                if (occupancy == 0) begin
+
+                    // Freeze read, only write
+
+                    write_success = enqueue(observed.write_data);
+
                     expected.status.underflow = 1'b1;
                     expected.debug.last_error = ERR_UNDERFLOW;
+
                 end
-                write_success = enqueue(observed.write_data);
-                if (!write_success) begin
-                    expected.status.overflow = 1'b1;
-                    expected.debug.last_error = ERR_OVERFLOW;
+                else begin
+
+                    expected.read_data = dequeue(read_success);
+
+                    if (!read_success) begin
+                        expected.status.underflow = 1'b1;
+                        expected.debug.last_error = ERR_UNDERFLOW;
+                    end
+
+                    write_success = enqueue(observed.write_data);
+
+                    if (!write_success) begin
+                        expected.status.overflow = 1'b1;
+                        expected.debug.last_error = ERR_OVERFLOW;
+                    end
+
                 end
+
             end
             OP_FLUSH: begin
                 rd_ptr = 0;
@@ -147,21 +193,30 @@ class fifo_reference_model #(parameter int DATA_WIDTH = DEFAULT_DATA_WIDTH,
     endfunction
 
     task run(int unsigned count = 0);
-        if (in_mb == null) begin
-            $fatal(1, "%s: input mailbox not initialized", name);
-        end
-        if (out_mb == null) begin
-            $fatal(1, "%s: output mailbox not initialized", name);
-        end
+
+        fifo_transaction #(DATA_WIDTH) observed;
+        fifo_transaction #(DATA_WIDTH) expected;
+
+        if (in_mb == null)
+            $fatal(1,"%s: input mailbox not initialized",name);
+
+        if (out_mb == null)
+            $fatal(1,"%s: output mailbox not initialized",name);
 
         processed_count = 0;
+
         while (count == 0 || processed_count < count) begin
-            fifo_transaction #(DATA_WIDTH) observed;
+
             in_mb.get(observed);
-            fifo_transaction #(DATA_WIDTH) expected = build_expected(observed, processed_count);
+
+            expected = build_expected(observed, processed_count);
+
             out_mb.put(expected);
-            processed_count += 1;
+
+            processed_count++;
+
         end
+
     endtask
 
     function int unsigned get_processed_count();
