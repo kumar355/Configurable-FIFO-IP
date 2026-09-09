@@ -6,12 +6,12 @@ import fifo_pkg::*;
 class fifo_environment #(parameter int DATA_WIDTH = DEFAULT_DATA_WIDTH,
                          parameter int FIFO_DEPTH = DEFAULT_FIFO_DEPTH);
 
-    virtual fifo_if.DRIVER   drv_vif;
-    virtual fifo_if.MONITOR  mon_vif;
+    virtual fifo_if #(DATA_WIDTH, FIFO_DEPTH).DRIVER   drv_vif;
+    virtual fifo_if #(DATA_WIDTH, FIFO_DEPTH).MONITOR  mon_vif;
 
     fifo_generator #(DATA_WIDTH) generator;
     fifo_driver #(DATA_WIDTH, FIFO_DEPTH) driver;
-    fifo_monitor #(DATA_WIDTH) monitor;
+    fifo_monitor #(DATA_WIDTH, FIFO_DEPTH) monitor;
     fifo_reference_model #(DATA_WIDTH, FIFO_DEPTH) ref_model;
     fifo_scoreboard #(DATA_WIDTH) scoreboard;
 
@@ -24,8 +24,8 @@ class fifo_environment #(parameter int DATA_WIDTH = DEFAULT_DATA_WIDTH,
     string name;
 
     function new(string name_in = "fifo_environment",
-                 virtual fifo_if.DRIVER drv_vif_in = null,
-                 virtual fifo_if.MONITOR mon_vif_in = null,
+                 virtual fifo_if #(DATA_WIDTH, FIFO_DEPTH).DRIVER drv_vif_in = null,
+                 virtual fifo_if #(DATA_WIDTH, FIFO_DEPTH).MONITOR mon_vif_in = null,
                  int unsigned num_transactions_in = 100);
         name = name_in;
         drv_vif = drv_vif_in;

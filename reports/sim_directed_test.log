@@ -1,0 +1,83 @@
+﻿Reading pref.tcl
+
+# 2025.2
+
+# ** Note: (vsim-220) 'modelsim.ini' is used as the ini file.
+# vsim -c -voptargs="+acc" -do "run -all; quit" directed_test 
+# Start time: 10:20:34 on Sep 09,2026
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Warning: (vopt-10908) Some optimizations are turned off because the +acc switch is in effect.
+# ** Note: (vopt-220) 'modelsim.ini' is used as the ini file.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# //  Questa Altera Starter FPGA Edition-64
+# //  Version 2025.2 win64 May 31 2025
+# //
+# // Unpublished work. Copyright 2025 Siemens
+# //
+# // This material contains trade secrets or otherwise confidential information
+# // owned by Siemens Industry Software Inc. or its affiliates (collectively,
+# // "SISW"), or its licensors. Access to and use of this information is strictly
+# // limited as set forth in the Customer's applicable agreements with SISW.
+# //
+# // This material may not be copied, distributed, or otherwise disclosed outside
+# // of the Customer's facilities without the express written permission of SISW,
+# // and may not be used in any way not expressly authorized by SISW.
+# //
+# Loading sv_std.std
+# Loading work.fifo_if(fast)
+# Loading work.fifo_pkg(fast)
+# Loading work.fifo_verif_pkg(fast)
+# Loading work.directed_test_sv_unit(fast)
+# Loading work.directed_test(fast)
+# Loading work.fifo_if_sv_unit(fast)
+# Loading work.fifo_if(fast__2)
+# Loading work.sync_fifo_top_sv_unit(fast)
+# Loading work.sync_fifo_top(fast)
+# Loading work.sync_fifo_ctrl_sv_unit(fast)
+# Loading work.sync_fifo_ctrl(fast)
+# Loading work.fifo_mem_sv_unit(fast)
+# Loading work.fifo_mem(fast)
+# Loading work.fifo_assertions_sv_unit(fast)
+# Loading work.fifo_assertions(fast)
+# Loading work.fifo_coverage_sv_unit(fast)
+# Loading work.fifo_coverage(fast)
+# run -all
+# ========================================
+# [DIRECTED TEST] Starting Targeted Test Suite
+# ========================================
+# [PASS] Step 1: Reset state verified (empty=1, occupancy=0)
+# [DIRECTED TEST] Step 2: Filling FIFO to capacity (16 elements)...
+# [PASS] Step 2: Full capacity reached (full=1, occupancy=16)
+# [DIRECTED TEST] Step 3: Triggering Overflow condition...
+# [PASS] Step 3: Overflow flag asserted successfully
+# [DIRECTED TEST] Step 4: Reading back all elements...
+# [PASS] Step 4: Read back complete (empty=1, occupancy=0)
+# [DIRECTED TEST] Step 5: Triggering Underflow condition...
+# [PASS] Step 5: Underflow flag asserted successfully
+# [DIRECTED TEST] Step 6: Testing Flush operation...
+# [PASS] Step 6: Flush successfully cleared FIFO
+# ========================================
+# [DIRECTED TEST] SUMMARY: Pass=6 Fail=0
+# ========================================
+# DIRECTED TEST PASSED SUCCESSFULLY!
+# ** Note: $finish    : tests/directed/directed_test.sv(249)
+#    Time: 467 ns  Iteration: 0  Instance: /directed_test
+# ========================================
+# [COVERAGE REPORT] Functional Coverage Summary:
+#   Operations:
+#     OP_IDLE      : 2
+#     OP_WRITE     : 21
+#     OP_READ      : 16
+#     OP_READ_WRITE: 0
+#     OP_FLUSH     : 1
+#     OP_OVERFLOW  : 1
+#     OP_UNDERFLOW : 1
+#   Occupancy Bins:
+#     EMPTY        : 5
+#     ALMOST_EMPTY : 3
+#     PARTIAL      : 30
+#     ALMOST_FULL  : 2
+#     FULL         : 2
+# ========================================
+# End time: 10:20:36 on Sep 09,2026, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 1

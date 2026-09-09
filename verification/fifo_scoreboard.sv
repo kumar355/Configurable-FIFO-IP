@@ -66,7 +66,7 @@ function bit compare_transaction(
         };
     end
 
-    if (expected.read_data != actual.read_data) begin
+    if (expected.read_data_valid && (expected.read_data != actual.read_data)) begin
         match = 0;
         diff = {
             diff,

@@ -130,6 +130,7 @@ class fifo_reference_model #(parameter int DATA_WIDTH = DEFAULT_DATA_WIDTH,
             OP_READ: begin
                 last_error = ERR_NONE;
                 expected.read_data = dequeue(read_success);
+                expected.read_data_valid = read_success;
                 if (!read_success) begin
                     last_error = ERR_UNDERFLOW;
                 end
@@ -138,16 +139,19 @@ class fifo_reference_model #(parameter int DATA_WIDTH = DEFAULT_DATA_WIDTH,
             OP_UNDERFLOW: begin
                 last_error = ERR_UNDERFLOW;
                 expected.read_data = '0;
+                expected.read_data_valid = 0;
             end
 
             OP_READ_WRITE: begin
                 last_error = ERR_NONE;
                 if (occupancy == 0) begin
                     // Freeze read, perform write only
+                    expected.read_data_valid = 0;
                     write_success = enqueue(observed.write_data);
                 end
                 else begin
                     expected.read_data = dequeue(read_success);
+                    expected.read_data_valid = read_success;
                     write_success = enqueue(observed.write_data);
                     if (!write_success) begin
                         last_error = ERR_OVERFLOW;

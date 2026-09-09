@@ -1,3 +1,7 @@
+﻿Reading pref.tcl
+
+# 2025.2
+
 # ** Note: (vsim-220) 'modelsim.ini' is used as the ini file.
 # vsim -c -voptargs="+acc" -do "run -all; quit" fault_injection_test 
 # Start time: 10:20:54 on Sep 09,2026

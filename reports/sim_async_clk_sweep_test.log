@@ -1,0 +1,79 @@
+﻿Reading pref.tcl
+
+# 2025.2
+
+# ** Note: (vsim-220) 'modelsim.ini' is used as the ini file.
+# vsim -c -voptargs="+acc" -do "run -all; quit" async_clk_sweep_test 
+# Start time: 10:20:44 on Sep 09,2026
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Warning: (vopt-10908) Some optimizations are turned off because the +acc switch is in effect.
+# ** Note: (vopt-220) 'modelsim.ini' is used as the ini file.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# //  Questa Altera Starter FPGA Edition-64
+# //  Version 2025.2 win64 May 31 2025
+# //
+# // Unpublished work. Copyright 2025 Siemens
+# //
+# // This material contains trade secrets or otherwise confidential information
+# // owned by Siemens Industry Software Inc. or its affiliates (collectively,
+# // "SISW"), or its licensors. Access to and use of this information is strictly
+# // limited as set forth in the Customer's applicable agreements with SISW.
+# //
+# // This material may not be copied, distributed, or otherwise disclosed outside
+# // of the Customer's facilities without the express written permission of SISW,
+# // and may not be used in any way not expressly authorized by SISW.
+# //
+# Loading sv_std.std
+# Loading work.fifo_pkg(fast)
+# Loading work.async_clk_sweep_test_sv_unit(fast)
+# Loading work.async_clk_sweep_test(fast)
+# Loading work.async_fifo_top_sv_unit(fast)
+# Loading work.async_fifo_top(fast)
+# Loading work.async_fifo_ctrl_sv_unit(fast)
+# Loading work.async_fifo_ctrl(fast)
+# Loading work.synchronizer(fast)
+# Loading work.synchronizer(fast__1)
+# Loading work.gray_counter(fast)
+# Loading work.fifo_mem_sv_unit(fast)
+# Loading work.fifo_mem(fast)
+# ** Warning: (vsim-3015) [PCDPC] - Port size (4) does not match connection size (32) for port 'af_threshold'. The port definition is at: rtl/async/async_fifo_top.sv(24).
+#    Time: 0 ps  Iteration: 0  Instance: /async_clk_sweep_test/dut_inst File: tests/async/async_clk_sweep_test.sv Line: 44
+# ** Warning: (vsim-3015) [PCDPC] - Port size (4) does not match connection size (32) for port 'ae_threshold'. The port definition is at: rtl/async/async_fifo_top.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /async_clk_sweep_test/dut_inst File: tests/async/async_clk_sweep_test.sv Line: 44
+# run -all
+# =========================================================
+#    ASYNCHRONOUS FIFO MULTI-CLOCK RATIO SWEEP SUITE
+# =========================================================
+# ---------------------------------------------------------
+# [ASYNC SWEEP] Running Scenario: 1. Fast Write (10ns) / Slow Read (16ns)
+#               WR Period = 10000, RD Period = 16000, Phase = 0
+# ---------------------------------------------------------
+# [PASS] Scenario '1. Fast Write (10ns) / Slow Read (16ns)' PASSED clean! (50 items verified)
+# ---------------------------------------------------------
+# [ASYNC SWEEP] Running Scenario: 2. Slow Write (16ns) / Fast Read (10ns)
+#               WR Period = 16000, RD Period = 10000, Phase = 0
+# ---------------------------------------------------------
+# [PASS] Scenario '2. Slow Write (16ns) / Fast Read (10ns)' PASSED clean! (50 items verified)
+# ---------------------------------------------------------
+# [ASYNC SWEEP] Running Scenario: 3. Prime Ratio A (7ns Wr / 13ns Rd)
+#               WR Period = 7000, RD Period = 13000, Phase = 0
+# ---------------------------------------------------------
+# [PASS] Scenario '3. Prime Ratio A (7ns Wr / 13ns Rd)' PASSED clean! (50 items verified)
+# ---------------------------------------------------------
+# [ASYNC SWEEP] Running Scenario: 4. Prime Ratio B (11ns Wr / 17ns Rd)
+#               WR Period = 11000, RD Period = 17000, Phase = 0
+# ---------------------------------------------------------
+# [PASS] Scenario '4. Prime Ratio B (11ns Wr / 17ns Rd)' PASSED clean! (50 items verified)
+# ---------------------------------------------------------
+# [ASYNC SWEEP] Running Scenario: 5. Equal Freq with Phase Shift (10ns Wr / 10ns Rd + 3ns Phase)
+#               WR Period = 10000, RD Period = 10000, Phase = 3000
+# ---------------------------------------------------------
+# [PASS] Scenario '5. Equal Freq with Phase Shift (10ns Wr / 10ns Rd + 3ns Phase)' PASSED clean! (50 items verified)
+# =========================================================
+#    ASYNC CLOCK SWEEP SUMMARY: Passed=5, Failed=0
+# =========================================================
+# ALL ASYNC CLOCK SWEEP SCENARIOS PASSED SUCCESSFULLY!
+# ** Note: $finish    : tests/async/async_clk_sweep_test.sv(215)
+#    Time: 8168 ns  Iteration: 1  Instance: /async_clk_sweep_test
+# End time: 10:20:46 on Sep 09,2026, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 3

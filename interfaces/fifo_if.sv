@@ -65,7 +65,7 @@ interface fifo_if
 
     clocking drv_cb @(posedge clk);
 
-        default input #1step output #1ns;
+        default input #1step output #0;
 
         output wr_en;
         output rd_en;

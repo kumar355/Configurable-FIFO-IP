@@ -8,7 +8,7 @@ class fifo_driver #(
     parameter int FIFO_DEPTH = DEFAULT_FIFO_DEPTH
 );
 
-    virtual fifo_if.DRIVER vif;
+    virtual fifo_if #(DATA_WIDTH, FIFO_DEPTH).DRIVER vif;
     mailbox #(fifo_transaction #(DATA_WIDTH)) in_mb;
     string name;
     int unsigned transaction_count;
@@ -16,7 +16,7 @@ class fifo_driver #(
 
     function new(
         string name_in = "fifo_driver",
-        virtual fifo_if.DRIVER vif_in = null,
+        virtual fifo_if #(DATA_WIDTH, FIFO_DEPTH).DRIVER vif_in = null,
         mailbox #(fifo_transaction #(DATA_WIDTH)) mb_in = null,
         int unsigned transaction_count_in = 0
     );

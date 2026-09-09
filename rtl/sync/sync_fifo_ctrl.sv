@@ -61,9 +61,9 @@ module sync_fifo_ctrl
     // supported configuration for this controller.
     initial
     begin
-        if (FIFO_DEPTH < 2)
+        if ((FIFO_DEPTH < 2) || ((FIFO_DEPTH & (FIFO_DEPTH - 1)) != 0))
         begin
-            $fatal("sync_fifo_ctrl: FIFO_DEPTH must be >= 2 (got %0d)", FIFO_DEPTH);
+            $fatal(1, "sync_fifo_ctrl: FIFO_DEPTH must be a power of 2 and >= 2 (got %0d)", FIFO_DEPTH);
         end
     end
 
@@ -314,11 +314,9 @@ module sync_fifo_ctrl
             (next_state.occupancy <= ae_threshold);
 
         overflow =
-
             (next_state.last_error == ERR_OVERFLOW);
 
         underflow =
-
             (next_state.last_error == ERR_UNDERFLOW);
 
 

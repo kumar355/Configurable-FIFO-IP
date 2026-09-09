@@ -25,7 +25,7 @@ module fifo_mem
 
     localparam int ADDR_WIDTH = $clog2(FIFO_DEPTH);
 
-    logic [DATA_WIDTH-1:0] mem [0:FIFO_DEPTH-1];
+    reg [DATA_WIDTH-1:0] mem [0:FIFO_DEPTH-1];
 
     logic [DATA_WIDTH-1:0] rd_data_reg;
 
@@ -45,13 +45,13 @@ module fifo_mem
             INIT_ZERO :
             begin
                 for(i=0;i<FIFO_DEPTH;i++)
-                    mem[i] = '0;
+                    mem[i] <= '0;
             end
 
             INIT_INCREMENTAL :
             begin
                 for(i=0;i<FIFO_DEPTH;i++)
-                    mem[i] = i;
+                    mem[i] <= DATA_WIDTH'(i);
             end
 
             default :
@@ -64,7 +64,7 @@ module fifo_mem
 
 `endif
 
-    always_ff @(posedge clk)
+    always @(posedge clk)
     begin
 
         if(wr_en)
@@ -130,7 +130,7 @@ module fifo_mem
                             rd_data = mem[rd_addr];
 
                         NO_CHANGE :
-                            rd_data = rd_data_reg;
+                            rd_data = mem[rd_addr];
 
                         default :
                             rd_data = mem[rd_addr];

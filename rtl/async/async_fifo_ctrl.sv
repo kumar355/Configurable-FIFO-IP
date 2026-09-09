@@ -51,6 +51,13 @@ module async_fifo_ctrl
     localparam int ADDR_WIDTH = $clog2(FIFO_DEPTH);
     localparam int PTR_WIDTH  = ADDR_WIDTH + 1;
 
+    // Elaboration-time parameter check for power-of-two FIFO_DEPTH
+    initial begin
+        if ((FIFO_DEPTH < 2) || ((FIFO_DEPTH & (FIFO_DEPTH - 1)) != 0)) begin
+            $fatal(1, "async_fifo_ctrl: FIFO_DEPTH must be a power of 2 and >= 2 (got %0d)", FIFO_DEPTH);
+        end
+    end
+
     // Debug packing sizes
     localparam int DEBUG_CORE_WIDTH = 4 + 3 * PTR_WIDTH;
     localparam int DEBUG_PAD = (DEBUG_CORE_WIDTH <= 32) ? 32 - DEBUG_CORE_WIDTH : 0;

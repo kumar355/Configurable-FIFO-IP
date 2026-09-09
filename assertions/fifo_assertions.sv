@@ -92,22 +92,20 @@ module fifo_assertions
         else $error("[SVA FAIL] Almost empty flag mismatch! almost_empty=%0b occupancy=%0d threshold=%0d", almost_empty, occupancy, ae_threshold);
 
     // 7. Overflow flag assertion
-    always @(posedge clk) begin
-        if (rst_n && enable && wr_en && !rd_en && (occupancy == FIFO_DEPTH)) begin
-            #1;
-            if (!overflow)
-                $error("[SVA FAIL] Overflow flag not asserted after write to full FIFO!");
-        end
-    end
+    property p_overflow_flag;
+        @(posedge clk) disable iff (!rst_n)
+        (enable && wr_en && !rd_en && $past(full)) |-> overflow;
+    endproperty
+    assert_overflow_flag: assert property (p_overflow_flag)
+        else $error("[SVA FAIL] Overflow flag not asserted after write to full FIFO!");
 
     // 8. Underflow flag assertion
-    always @(posedge clk) begin
-        if (rst_n && enable && rd_en && !wr_en && (occupancy == 0)) begin
-            #1;
-            if (!underflow)
-                $error("[SVA FAIL] Underflow flag not asserted after read from empty FIFO!");
-        end
-    end
+    property p_underflow_flag;
+        @(posedge clk) disable iff (!rst_n)
+        (enable && rd_en && !wr_en && $past(empty)) |-> underflow;
+    endproperty
+    assert_underflow_flag: assert property (p_underflow_flag)
+        else $error("[SVA FAIL] Underflow flag not asserted after read from empty FIFO!");
 
     // 9. Flush clears occupancy
     property p_flush_clears;

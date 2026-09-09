@@ -1,0 +1,104 @@
+﻿Reading pref.tcl
+
+# 2025.2
+
+# ** Note: (vsim-220) 'modelsim.ini' is used as the ini file.
+# vsim -c -voptargs="+acc" -do "run -all; quit" param_sweep_test 
+# Start time: 10:20:50 on Sep 09,2026
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Warning: (vopt-10908) Some optimizations are turned off because the +acc switch is in effect.
+# ** Note: (vopt-220) 'modelsim.ini' is used as the ini file.
+# ** Warning: tests/directed/param_sweep_test.sv(29): (vopt-2685) [TFMPC] - Too few port connections for 'dut1'.  Expected 19, found 13.
+# ** Warning: tests/directed/param_sweep_test.sv(29): (vopt-2718) [TFMPC] - Missing connection for port 'dbg_operation'.
+# ** Warning: tests/directed/param_sweep_test.sv(29): (vopt-2718) [TFMPC] - Missing connection for port 'debug_status'.
+# ** Warning: tests/directed/param_sweep_test.sv(29): (vopt-2718) [TFMPC] - Missing connection for port 'underflow'.
+# ** Warning: tests/directed/param_sweep_test.sv(29): (vopt-2718) [TFMPC] - Missing connection for port 'overflow'.
+# ** Warning: tests/directed/param_sweep_test.sv(29): (vopt-2718) [TFMPC] - Missing connection for port 'almost_empty'.
+# ** Warning: tests/directed/param_sweep_test.sv(29): (vopt-2718) [TFMPC] - Missing connection for port 'almost_full'.
+# ** Warning: tests/directed/param_sweep_test.sv(37): (vopt-2685) [TFMPC] - Too few port connections for 'dut2'.  Expected 19, found 13.
+# ** Warning: tests/directed/param_sweep_test.sv(37): (vopt-2718) [TFMPC] - Missing connection for port 'dbg_operation'.
+# ** Warning: tests/directed/param_sweep_test.sv(37): (vopt-2718) [TFMPC] - Missing connection for port 'debug_status'.
+# ** Warning: tests/directed/param_sweep_test.sv(37): (vopt-2718) [TFMPC] - Missing connection for port 'underflow'.
+# ** Warning: tests/directed/param_sweep_test.sv(37): (vopt-2718) [TFMPC] - Missing connection for port 'overflow'.
+# ** Warning: tests/directed/param_sweep_test.sv(37): (vopt-2718) [TFMPC] - Missing connection for port 'almost_empty'.
+# ** Warning: tests/directed/param_sweep_test.sv(37): (vopt-2718) [TFMPC] - Missing connection for port 'almost_full'.
+# ** Warning: tests/directed/param_sweep_test.sv(45): (vopt-2685) [TFMPC] - Too few port connections for 'dut3'.  Expected 19, found 13.
+# ** Warning: tests/directed/param_sweep_test.sv(45): (vopt-2718) [TFMPC] - Missing connection for port 'dbg_operation'.
+# ** Warning: tests/directed/param_sweep_test.sv(45): (vopt-2718) [TFMPC] - Missing connection for port 'debug_status'.
+# ** Warning: tests/directed/param_sweep_test.sv(45): (vopt-2718) [TFMPC] - Missing connection for port 'underflow'.
+# ** Warning: tests/directed/param_sweep_test.sv(45): (vopt-2718) [TFMPC] - Missing connection for port 'overflow'.
+# ** Warning: tests/directed/param_sweep_test.sv(45): (vopt-2718) [TFMPC] - Missing connection for port 'almost_empty'.
+# ** Warning: tests/directed/param_sweep_test.sv(45): (vopt-2718) [TFMPC] - Missing connection for port 'almost_full'.
+# ** Warning: tests/directed/param_sweep_test.sv(53): (vopt-2685) [TFMPC] - Too few port connections for 'dut4'.  Expected 19, found 13.
+# ** Warning: tests/directed/param_sweep_test.sv(53): (vopt-2718) [TFMPC] - Missing connection for port 'dbg_operation'.
+# ** Warning: tests/directed/param_sweep_test.sv(53): (vopt-2718) [TFMPC] - Missing connection for port 'debug_status'.
+# ** Warning: tests/directed/param_sweep_test.sv(53): (vopt-2718) [TFMPC] - Missing connection for port 'underflow'.
+# ** Warning: tests/directed/param_sweep_test.sv(53): (vopt-2718) [TFMPC] - Missing connection for port 'overflow'.
+# ** Warning: tests/directed/param_sweep_test.sv(53): (vopt-2718) [TFMPC] - Missing connection for port 'almost_empty'.
+# ** Warning: tests/directed/param_sweep_test.sv(53): (vopt-2718) [TFMPC] - Missing connection for port 'almost_full'.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=29.
+# //  Questa Altera Starter FPGA Edition-64
+# //  Version 2025.2 win64 May 31 2025
+# //
+# // Unpublished work. Copyright 2025 Siemens
+# //
+# // This material contains trade secrets or otherwise confidential information
+# // owned by Siemens Industry Software Inc. or its affiliates (collectively,
+# // "SISW"), or its licensors. Access to and use of this information is strictly
+# // limited as set forth in the Customer's applicable agreements with SISW.
+# //
+# // This material may not be copied, distributed, or otherwise disclosed outside
+# // of the Customer's facilities without the express written permission of SISW,
+# // and may not be used in any way not expressly authorized by SISW.
+# //
+# Loading sv_std.std
+# Loading work.fifo_pkg(fast)
+# Loading work.param_sweep_test_sv_unit(fast)
+# Loading work.param_sweep_test(fast)
+# Loading work.sync_fifo_top_sv_unit(fast)
+# Loading work.sync_fifo_top(fast)
+# Loading work.sync_fifo_ctrl_sv_unit(fast)
+# Loading work.sync_fifo_ctrl(fast)
+# Loading work.fifo_mem_sv_unit(fast)
+# Loading work.fifo_mem(fast)
+# Loading work.sync_fifo_top(fast__1)
+# Loading work.sync_fifo_ctrl(fast__1)
+# Loading work.fifo_mem(fast__1)
+# Loading work.sync_fifo_top(fast__2)
+# Loading work.sync_fifo_ctrl(fast__2)
+# Loading work.fifo_mem(fast__2)
+# Loading work.sync_fifo_top(fast__3)
+# Loading work.sync_fifo_ctrl(fast__3)
+# Loading work.fifo_mem(fast__3)
+# ** Warning: (vsim-3015) [PCDPC] - Port size (2) does not match connection size (32) for port 'af_threshold'. The port definition is at: rtl/sync/sync_fifo_top.sv(22).
+#    Time: 0 ps  Iteration: 0  Instance: /param_sweep_test/dut1 File: tests/directed/param_sweep_test.sv Line: 29
+# ** Warning: (vsim-3015) [PCDPC] - Port size (2) does not match connection size (32) for port 'ae_threshold'. The port definition is at: rtl/sync/sync_fifo_top.sv(23).
+#    Time: 0 ps  Iteration: 0  Instance: /param_sweep_test/dut1 File: tests/directed/param_sweep_test.sv Line: 29
+# ** Warning: (vsim-3015) [PCDPC] - Port size (4) does not match connection size (32) for port 'af_threshold'. The port definition is at: rtl/sync/sync_fifo_top.sv(22).
+#    Time: 0 ps  Iteration: 0  Instance: /param_sweep_test/dut2 File: tests/directed/param_sweep_test.sv Line: 37
+# ** Warning: (vsim-3015) [PCDPC] - Port size (4) does not match connection size (32) for port 'ae_threshold'. The port definition is at: rtl/sync/sync_fifo_top.sv(23).
+#    Time: 0 ps  Iteration: 0  Instance: /param_sweep_test/dut2 File: tests/directed/param_sweep_test.sv Line: 37
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (32) for port 'af_threshold'. The port definition is at: rtl/sync/sync_fifo_top.sv(22).
+#    Time: 0 ps  Iteration: 0  Instance: /param_sweep_test/dut3 File: tests/directed/param_sweep_test.sv Line: 45
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (32) for port 'ae_threshold'. The port definition is at: rtl/sync/sync_fifo_top.sv(23).
+#    Time: 0 ps  Iteration: 0  Instance: /param_sweep_test/dut3 File: tests/directed/param_sweep_test.sv Line: 45
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (32) for port 'af_threshold'. The port definition is at: rtl/sync/sync_fifo_top.sv(22).
+#    Time: 0 ps  Iteration: 0  Instance: /param_sweep_test/dut4 File: tests/directed/param_sweep_test.sv Line: 53
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (32) for port 'ae_threshold'. The port definition is at: rtl/sync/sync_fifo_top.sv(23).
+#    Time: 0 ps  Iteration: 0  Instance: /param_sweep_test/dut4 File: tests/directed/param_sweep_test.sv Line: 53
+# run -all
+# =========================================================
+#    PARAMETER SWEEP TEST SUITE (DATA_WIDTH & FIFO_DEPTH)
+# =========================================================
+# [PASS] Parameter Config 1 (DW=1, DEPTH=2) Full capacity verified
+# [PASS] Parameter Config 2 (DW=8, DEPTH=8) Full capacity verified
+# [PASS] Parameter Config 3 (DW=32, DEPTH=16) Full capacity verified
+# [PASS] Parameter Config 4 (DW=64, DEPTH=32) Full capacity verified
+# =========================================================
+#    PARAMETER SWEEP SUMMARY: Passed=4, Failed=0
+# =========================================================
+# ALL PARAMETER CONFIGURATIONS PASSED SUCCESSFULLY!
+# ** Note: $finish    : tests/directed/param_sweep_test.sv(123)
+#    Time: 735001 ps  Iteration: 0  Instance: /param_sweep_test
+# End time: 10:20:52 on Sep 09,2026, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 37

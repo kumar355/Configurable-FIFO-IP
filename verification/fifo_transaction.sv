@@ -13,6 +13,7 @@ class fifo_transaction #(parameter int DATA_WIDTH = DEFAULT_DATA_WIDTH);
 
     string name;
     bit valid;
+    bit read_data_valid;
 
     constraint write_data_if_write {
         if (operation == OP_READ || operation == OP_IDLE || operation == OP_FLUSH || operation == OP_OVERFLOW || operation == OP_UNDERFLOW)

@@ -1,1 +1,1 @@
-D:/altera/25.1std/questa_fse/win64/VisualizerRls/bin/viscom.exe -nolock -quiet -jmem_size 934320 work.async_fifo_test -quiet -auto_acc_if_foreign -work work +acc -allow_unnamed -o _opt3 -id 1-c0353252da7d-6aa0d76e-ab-2ccc +__betafsm
+D:/altera/25.1std/questa_fse/win64/VisualizerRls/bin/viscom.exe -nolock -quiet -jmem_size 2900400 work.fault_injection_test -quiet -auto_acc_if_foreign -work work +acc -allow_unnamed -o _opt3 -id 1-c0353252da7d-6aa0e5ae-345-45f4 +__betafsm

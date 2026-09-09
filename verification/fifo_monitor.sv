@@ -3,9 +3,10 @@
 
 import fifo_pkg::*;
 
-class fifo_monitor #(parameter int DATA_WIDTH = DEFAULT_DATA_WIDTH);
+class fifo_monitor #(parameter int DATA_WIDTH = DEFAULT_DATA_WIDTH,
+                     parameter int FIFO_DEPTH = DEFAULT_FIFO_DEPTH);
 
-    virtual fifo_if.MONITOR vif;
+    virtual fifo_if #(DATA_WIDTH, FIFO_DEPTH).MONITOR vif;
 
     mailbox #(fifo_transaction #(DATA_WIDTH)) out_mb_refmodel;
     mailbox #(fifo_transaction #(DATA_WIDTH)) out_mb_scoreboard;
@@ -17,7 +18,7 @@ class fifo_monitor #(parameter int DATA_WIDTH = DEFAULT_DATA_WIDTH);
 
     function new(
         string name_in = "fifo_monitor",
-        virtual fifo_if.MONITOR vif_in = null,
+        virtual fifo_if #(DATA_WIDTH, FIFO_DEPTH).MONITOR vif_in = null,
         mailbox #(fifo_transaction #(DATA_WIDTH)) mb_refmodel_in = null,
         mailbox #(fifo_transaction #(DATA_WIDTH)) mb_scoreboard_in = null,
         int unsigned monitor_count_in = 0
@@ -63,23 +64,16 @@ class fifo_monitor #(parameter int DATA_WIDTH = DEFAULT_DATA_WIDTH);
         if (vif.mon_cb.flush)
             return OP_FLUSH;
 
-        else if (vif.mon_cb.overflow)
-            return OP_OVERFLOW;
-
-        else if (vif.mon_cb.underflow)
-            return OP_UNDERFLOW;
-
-        else if (vif.mon_cb.wr_en && vif.mon_cb.rd_en)
+        if (vif.mon_cb.wr_en && vif.mon_cb.rd_en)
             return OP_READ_WRITE;
 
-        else if (vif.mon_cb.wr_en)
+        if (vif.mon_cb.wr_en)
             return OP_WRITE;
 
-        else if (vif.mon_cb.rd_en)
+        if (vif.mon_cb.rd_en)
             return OP_READ;
 
-        else
-            return OP_IDLE;
+        return OP_IDLE;
 
     endfunction
 
@@ -93,7 +87,7 @@ class fifo_monitor #(parameter int DATA_WIDTH = DEFAULT_DATA_WIDTH);
 
         txn.name      = $sformatf("%s_txn_%0d", name, index);
         txn.valid     = 1'b1;
-        txn.operation = vif.mon_cb.dbg_operation;
+        txn.operation = observed_operation();
 
         txn.write_data =
             (txn.operation == OP_WRITE ||
@@ -117,18 +111,12 @@ class fifo_monitor #(parameter int DATA_WIDTH = DEFAULT_DATA_WIDTH);
         txn.debug.wr_ptr    = '0;
         txn.debug.rd_ptr    = '0;
 
-        case(txn.operation)
-
-            OP_OVERFLOW:
-                txn.debug.last_error = ERR_OVERFLOW;
-
-            OP_UNDERFLOW:
-                txn.debug.last_error = ERR_UNDERFLOW;
-
-            default:
-                txn.debug.last_error = ERR_NONE;
-
-        endcase
+        if (vif.mon_cb.overflow)
+            txn.debug.last_error = ERR_OVERFLOW;
+        else if (vif.mon_cb.underflow)
+            txn.debug.last_error = ERR_UNDERFLOW;
+        else
+            txn.debug.last_error = ERR_NONE;
     endfunction
 
     task run(int unsigned count = 0);

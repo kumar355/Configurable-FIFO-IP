@@ -1,0 +1,103 @@
+﻿Reading pref.tcl
+
+# 2025.2
+
+# ** Note: (vsim-220) 'modelsim.ini' is used as the ini file.
+# vsim -c -voptargs="+acc" -do "run -all; quit" fifo_base_test 
+# Start time: 10:20:31 on Sep 09,2026
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Warning: (vopt-10908) Some optimizations are turned off because the +acc switch is in effect.
+# ** Note: (vopt-220) 'modelsim.ini' is used as the ini file.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# //  Questa Altera Starter FPGA Edition-64
+# //  Version 2025.2 win64 May 31 2025
+# //
+# // Unpublished work. Copyright 2025 Siemens
+# //
+# // This material contains trade secrets or otherwise confidential information
+# // owned by Siemens Industry Software Inc. or its affiliates (collectively,
+# // "SISW"), or its licensors. Access to and use of this information is strictly
+# // limited as set forth in the Customer's applicable agreements with SISW.
+# //
+# // This material may not be copied, distributed, or otherwise disclosed outside
+# // of the Customer's facilities without the express written permission of SISW,
+# // and may not be used in any way not expressly authorized by SISW.
+# //
+# Loading sv_std.std
+# Loading work.fifo_if(fast)
+# Loading work.fifo_pkg(fast)
+# Loading work.fifo_verif_pkg(fast)
+# Loading work.fifo_base_test_sv_unit(fast)
+# Loading work.fifo_base_test(fast)
+# Loading work.fifo_if_sv_unit(fast)
+# Loading work.fifo_if(fast__2)
+# Loading work.sync_fifo_top_sv_unit(fast)
+# Loading work.sync_fifo_top(fast)
+# Loading work.sync_fifo_ctrl_sv_unit(fast)
+# Loading work.sync_fifo_ctrl(fast)
+# Loading work.fifo_mem_sv_unit(fast)
+# Loading work.fifo_mem(fast)
+# Loading work.fifo_assertions_sv_unit(fast)
+# Loading work.fifo_assertions(fast)
+# Loading work.fifo_coverage_sv_unit(fast)
+# Loading work.fifo_coverage(fast)
+# run -all
+# ========================================
+# FIFO Base Test Starting
+# ========================================
+# Configuration:
+#   DATA_WIDTH = 32
+#   FIFO_DEPTH = 16
+# ========================================
+# [TEST] Building environment...
+# [fifo_base_test_env] Environment built successfully
+# [TEST] Connecting environment...
+# [fifo_base_test_env] Environment connected successfully
+# [TEST] Running environment...
+# [fifo_base_test_env] Starting environment simulation
+# [fifo_base_test_env] Environment simulation completed
+# [fifo_base_test_env] Generator generated 100 transactions
+# [fifo_base_test_env] Driver drove 100 transactions
+# [fifo_base_test_env] Monitor observed 100 transactions
+# [fifo_base_test_env] Reference model processed 100 transactions
+# [fifo_base_test_env_sb] SCOREBOARD SUMMARY: compared=100 passed=100 failed=0
+# ========================================
+# FIFO Base Test Summary
+# ========================================
+# Test Configuration:
+#   DATA_WIDTH     = 32
+#   FIFO_DEPTH     = 16
+# ========================================
+# ========================================
+# [fifo_base_test_env] ENVIRONMENT REPORT
+# ========================================
+# Generator generated      : 100
+# Driver drove             : 100
+# Monitor observed         : 100
+# Reference Model processed: 100
+# [fifo_base_test_env_sb] SCOREBOARD SUMMARY: compared=100 passed=100 failed=0
+# ========================================
+# ========================================
+# Simulation completed successfully!
+# ========================================
+# ** Note: $finish    : verification/fifo_base_test.sv(170)
+#    Time: 2025 ns  Iteration: 5  Instance: /fifo_base_test
+# ========================================
+# [COVERAGE REPORT] Functional Coverage Summary:
+#   Operations:
+#     OP_IDLE      : 127
+#     OP_WRITE     : 25
+#     OP_READ      : 7
+#     OP_READ_WRITE: 10
+#     OP_FLUSH     : 19
+#     OP_OVERFLOW  : 0
+#     OP_UNDERFLOW : 13
+#   Occupancy Bins:
+#     EMPTY        : 110
+#     ALMOST_EMPTY : 67
+#     PARTIAL      : 24
+#     ALMOST_FULL  : 0
+#     FULL         : 0
+# ========================================
+# End time: 10:20:33 on Sep 09,2026, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 1
