@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 import fifo_pkg::*;
 
 interface fifo_if
@@ -37,8 +39,8 @@ interface fifo_if
     // Runtime Configuration
     //==========================================================
 
-    logic [ADDR_WIDTH:0] af_threshold;
-    logic [ADDR_WIDTH:0] ae_threshold;
+    logic [ADDR_WIDTH:0] af_threshold = FIFO_DEPTH - 1;
+    logic [ADDR_WIDTH:0] ae_threshold = 1;
 
     //==========================================================
     // Status

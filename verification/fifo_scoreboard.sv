@@ -156,7 +156,7 @@ task compare_next();
     expected_mbx.get(expected);
     actual_mbx.get(actual);
 
-    compare_transaction(expected, actual);
+    void'(compare_transaction(expected, actual));
 
 endtask
 

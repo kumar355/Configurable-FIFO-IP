@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 `ifndef FIFO_BASE_TEST_SV
 `define FIFO_BASE_TEST_SV
 
@@ -48,6 +50,53 @@ module fifo_base_test
         .occupancy(fifo_interface.occupancy),
         .debug_status(fifo_interface.debug_status),
         .dbg_operation(fifo_interface.dbg_operation)      
+    );
+
+    // Instantiate SystemVerilog Assertions
+    fifo_assertions #(
+        .DATA_WIDTH(DATA_WIDTH),
+        .FIFO_DEPTH(FIFO_DEPTH)
+    ) u_assertions (
+        .clk(clk),
+        .rst_n(rst_n),
+        .wr_en(fifo_interface.wr_en),
+        .rd_en(fifo_interface.rd_en),
+        .enable(fifo_interface.enable),
+        .flush(fifo_interface.flush),
+        .din(fifo_interface.din),
+        .af_threshold(fifo_interface.af_threshold),
+        .ae_threshold(fifo_interface.ae_threshold),
+        .dout(fifo_interface.dout),
+        .full(fifo_interface.full),
+        .empty(fifo_interface.empty),
+        .almost_full(fifo_interface.almost_full),
+        .almost_empty(fifo_interface.almost_empty),
+        .overflow(fifo_interface.overflow),
+        .underflow(fifo_interface.underflow),
+        .occupancy(fifo_interface.occupancy)
+    );
+
+    // Instantiate Functional Coverage
+    fifo_coverage #(
+        .DATA_WIDTH(DATA_WIDTH),
+        .FIFO_DEPTH(FIFO_DEPTH)
+    ) u_coverage (
+        .clk(clk),
+        .rst_n(rst_n),
+        .wr_en(fifo_interface.wr_en),
+        .rd_en(fifo_interface.rd_en),
+        .enable(fifo_interface.enable),
+        .flush(fifo_interface.flush),
+        .dbg_operation(fifo_interface.dbg_operation),
+        .af_threshold(fifo_interface.af_threshold),
+        .ae_threshold(fifo_interface.ae_threshold),
+        .full(fifo_interface.full),
+        .empty(fifo_interface.empty),
+        .almost_full(fifo_interface.almost_full),
+        .almost_empty(fifo_interface.almost_empty),
+        .overflow(fifo_interface.overflow),
+        .underflow(fifo_interface.underflow),
+        .occupancy(fifo_interface.occupancy)
     );
 
     // Instantiate the verification environment

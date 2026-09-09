@@ -5,11 +5,11 @@ import fifo_pkg::*;
 
 class fifo_transaction #(parameter int DATA_WIDTH = DEFAULT_DATA_WIDTH);
 
-    rand fifo_operation_t operation;
-    rand logic [DATA_WIDTH-1:0] write_data;
-    rand logic [DATA_WIDTH-1:0] read_data;
-    rand fifo_status_t status;
-    rand fifo_debug_t debug;
+    fifo_operation_t operation;
+    logic [DATA_WIDTH-1:0] write_data;
+    logic [DATA_WIDTH-1:0] read_data;
+    fifo_status_t status;
+    fifo_debug_t debug;
 
     string name;
     bit valid;

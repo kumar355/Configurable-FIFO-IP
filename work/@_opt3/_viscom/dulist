@@ -1,0 +1,15 @@
+1 8 fifo_pkg 4 fast 42 D:/VLSI_Projects/Configurable-FIFO-IP/work 0 0 0 0 111 0
+1 23 async_fifo_test_sv_unit 4 fast 42 D:/VLSI_Projects/Configurable-FIFO-IP/work 0 0 0 0 0 0
+1 22 async_fifo_top_sv_unit 4 fast 42 D:/VLSI_Projects/Configurable-FIFO-IP/work 0 0 0 0 0 0
+1 23 async_fifo_ctrl_sv_unit 4 fast 42 D:/VLSI_Projects/Configurable-FIFO-IP/work 0 0 0 0 0 0
+1 16 fifo_mem_sv_unit 4 fast 42 D:/VLSI_Projects/Configurable-FIFO-IP/work 0 0 0 0 0 0
+1 12 synchronizer 4 fast 42 D:/VLSI_Projects/Configurable-FIFO-IP/work 0 0 131072 0 78 0
+1 12 synchronizer 7 fast__1 42 D:/VLSI_Projects/Configurable-FIFO-IP/work 0 0 131072 0 78 0
+1 12 synchronizer 7 fast__2 42 D:/VLSI_Projects/Configurable-FIFO-IP/work 0 0 131072 0 78 0
+1 12 synchronizer 7 fast__3 42 D:/VLSI_Projects/Configurable-FIFO-IP/work 0 0 131072 0 78 0
+1 12 gray_counter 4 fast 42 D:/VLSI_Projects/Configurable-FIFO-IP/work 0 0 0 0 42 0
+1 12 gray_counter 7 fast__1 42 D:/VLSI_Projects/Configurable-FIFO-IP/work 0 0 0 0 42 0
+1 15 async_fifo_ctrl 4 fast 42 D:/VLSI_Projects/Configurable-FIFO-IP/work 0 0 0 0 675 0
+1 8 fifo_mem 4 fast 42 D:/VLSI_Projects/Configurable-FIFO-IP/work 0 0 0 0 208 0
+1 14 async_fifo_top 4 fast 42 D:/VLSI_Projects/Configurable-FIFO-IP/work 0 0 0 0 111 0
+1 15 async_fifo_test 4 fast 42 D:/VLSI_Projects/Configurable-FIFO-IP/work 0 0 0 0 277 0

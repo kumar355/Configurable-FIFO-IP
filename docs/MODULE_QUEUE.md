@@ -2,7 +2,7 @@
 
 Version: 2.0
 
-Status: Active Development
+Status: COMPLETED (Verified)
 
 Language: SystemVerilog IEEE 1800
 

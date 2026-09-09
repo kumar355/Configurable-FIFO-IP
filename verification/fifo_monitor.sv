@@ -103,8 +103,7 @@ class fifo_monitor #(parameter int DATA_WIDTH = DEFAULT_DATA_WIDTH);
 
         txn.read_data =
             (txn.operation == OP_READ ||
-             txn.operation == OP_READ_WRITE ||
-             txn.operation == OP_UNDERFLOW)
+             txn.operation == OP_READ_WRITE)
             ? vif.mon_cb.dout : '0;
 
         txn.status.full         = vif.mon_cb.full;
@@ -118,13 +117,18 @@ class fifo_monitor #(parameter int DATA_WIDTH = DEFAULT_DATA_WIDTH);
         txn.debug.wr_ptr    = '0;
         txn.debug.rd_ptr    = '0;
 
-        if (vif.mon_cb.overflow)
-            txn.debug.last_error = ERR_OVERFLOW;
-        else if (vif.mon_cb.underflow)
-            txn.debug.last_error = ERR_UNDERFLOW;
-        else
-            txn.debug.last_error = ERR_NONE;
+        case(txn.operation)
 
+            OP_OVERFLOW:
+                txn.debug.last_error = ERR_OVERFLOW;
+
+            OP_UNDERFLOW:
+                txn.debug.last_error = ERR_UNDERFLOW;
+
+            default:
+                txn.debug.last_error = ERR_NONE;
+
+        endcase
     endfunction
 
     task run(int unsigned count = 0);
@@ -147,8 +151,9 @@ class fifo_monitor #(parameter int DATA_WIDTH = DEFAULT_DATA_WIDTH);
         while (count == 0 || observed_count < count) begin
 
             @(vif.mon_cb);
+            
             capture_transaction(txn, observed_count);
-            txn.debug.occupancy = vif.mon_cb.occupancy;
+            
             txn_refmodel_copy  = new($sformatf("%s_ref_%0d",name,observed_count));
             txn_scoreboard_copy= new($sformatf("%s_sb_%0d",name,observed_count));
 

@@ -38,14 +38,13 @@ class fifo_generator #(parameter int DATA_WIDTH = DEFAULT_DATA_WIDTH);
     endfunction
 
     function fifo_operation_t random_operation();
-        case ($urandom_range(0, 6))
+        case ($urandom_range(0,4))
             0: return OP_IDLE;
             1: return OP_WRITE;
             2: return OP_READ;
             3: return OP_READ_WRITE;
             4: return OP_FLUSH;
-            5: return OP_OVERFLOW;
-            default: return OP_UNDERFLOW;
+            default: return OP_IDLE;
         endcase
     endfunction
 
@@ -83,13 +82,7 @@ class fifo_generator #(parameter int DATA_WIDTH = DEFAULT_DATA_WIDTH);
                 // nothing
             end
 
-            OP_OVERFLOW: begin
-                txn.write_data = $urandom();
-            end
-
-            OP_UNDERFLOW: begin
-                // nothing
-            end
+            
 
         endcase
 

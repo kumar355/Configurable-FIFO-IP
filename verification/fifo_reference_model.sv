@@ -11,11 +11,17 @@ class fifo_reference_model #(parameter int DATA_WIDTH = DEFAULT_DATA_WIDTH,
     mailbox #(fifo_transaction #(DATA_WIDTH)) out_mb;
 
     logic [DATA_WIDTH-1:0] fifo_mem [0:FIFO_DEPTH-1];
+
+    logic [DATA_WIDTH-1:0] last_read_data;
+
     int unsigned rd_ptr;
     int unsigned wr_ptr;
     int unsigned occupancy;
+    fifo_error_t last_error;
+
     int unsigned af_threshold;
     int unsigned ae_threshold;
+
     int unsigned processed_count;
 
     function new(
@@ -42,6 +48,8 @@ class fifo_reference_model #(parameter int DATA_WIDTH = DEFAULT_DATA_WIDTH,
         processed_count = 0;
         af_threshold = af_threshold_in;
         ae_threshold = ae_threshold_in;
+        last_read_data = '0;
+        last_error = ERR_NONE;
     endfunction
 
     function void reset();
@@ -49,6 +57,8 @@ class fifo_reference_model #(parameter int DATA_WIDTH = DEFAULT_DATA_WIDTH,
         wr_ptr = 0;
         occupancy = 0;
         processed_count = 0;
+        last_read_data = '0;
+        last_error = ERR_NONE;
     endfunction
 
     function bit enqueue(input logic [DATA_WIDTH-1:0] data);
@@ -73,6 +83,7 @@ class fifo_reference_model #(parameter int DATA_WIDTH = DEFAULT_DATA_WIDTH,
         success = 1;
 
         data = fifo_mem[rd_ptr];
+        last_read_data = data;
 
         rd_ptr = (rd_ptr + 1) % FIFO_DEPTH;
         occupancy -= 1;
@@ -98,96 +109,75 @@ class fifo_reference_model #(parameter int DATA_WIDTH = DEFAULT_DATA_WIDTH,
         expected.operation = observed.operation;
         expected.write_data = observed.write_data;
         expected.read_data = '0;
-        expected.status = '{
-            full         : 0,
-            empty        : 0,
-            almost_full  : 0,
-            almost_empty : 0,
-            overflow     : 0,
-            underflow    : 0
-        };
-
-        expected.debug = '{
-            wr_ptr      : 0,
-            rd_ptr      : 0,
-            occupancy   : 0,
-            last_error  : ERR_NONE
-        };
-
-        expected.debug.wr_ptr = wr_ptr;
-        expected.debug.rd_ptr = rd_ptr;
-        expected.debug.occupancy = occupancy;
-        expected.debug.last_error = ERR_NONE;
 
         case (observed.operation)
             OP_IDLE: begin
+                last_error = ERR_NONE;
             end
-            OP_WRITE,
-            OP_OVERFLOW: begin
+
+            OP_WRITE: begin
+                last_error = ERR_NONE;
                 write_success = enqueue(observed.write_data);
                 if (!write_success) begin
-                    expected.status.overflow = 1'b1;
-                    expected.debug.last_error = ERR_OVERFLOW;
+                    last_error = ERR_OVERFLOW;
                 end
             end
-            OP_READ,
-            OP_UNDERFLOW: begin
+
+            OP_OVERFLOW: begin
+                last_error = ERR_OVERFLOW;
+            end
+
+            OP_READ: begin
+                last_error = ERR_NONE;
                 expected.read_data = dequeue(read_success);
                 if (!read_success) begin
-                    expected.status.underflow = 1'b1;
-                    expected.debug.last_error = ERR_UNDERFLOW;
+                    last_error = ERR_UNDERFLOW;
                 end
             end
+
+            OP_UNDERFLOW: begin
+                last_error = ERR_UNDERFLOW;
+                expected.read_data = '0;
+            end
+
             OP_READ_WRITE: begin
-
-                // Same behavior as sync_fifo_ctrl
-
+                last_error = ERR_NONE;
                 if (occupancy == 0) begin
-
-                    // Freeze read, only write
-
+                    // Freeze read, perform write only
                     write_success = enqueue(observed.write_data);
-
-                    expected.status.underflow = 1'b1;
-                    expected.debug.last_error = ERR_UNDERFLOW;
-
                 end
                 else begin
-
                     expected.read_data = dequeue(read_success);
-
-                    if (!read_success) begin
-                        expected.status.underflow = 1'b1;
-                        expected.debug.last_error = ERR_UNDERFLOW;
-                    end
-
                     write_success = enqueue(observed.write_data);
-
                     if (!write_success) begin
-                        expected.status.overflow = 1'b1;
-                        expected.debug.last_error = ERR_OVERFLOW;
+                        last_error = ERR_OVERFLOW;
                     end
-
                 end
-
             end
+
             OP_FLUSH: begin
                 rd_ptr = 0;
                 wr_ptr = 0;
                 occupancy = 0;
+                last_read_data = '0;
+                last_error = ERR_NONE;
             end
+
             default: begin
             end
         endcase
 
-        expected.status.full = (occupancy == FIFO_DEPTH);
-        expected.status.empty = (occupancy == 0);
-        expected.status.almost_full = (occupancy >= af_threshold);
+        expected.status.full         = (occupancy == FIFO_DEPTH);
+        expected.status.empty        = (occupancy == 0);
+        expected.status.almost_full  = (occupancy >= af_threshold);
         expected.status.almost_empty = (occupancy <= ae_threshold);
-        expected.debug.occupancy = occupancy;
+        expected.status.overflow     = (last_error == ERR_OVERFLOW);
+        expected.status.underflow    = (last_error == ERR_UNDERFLOW);
 
-        expected.debug.wr_ptr = wr_ptr;
-        expected.debug.rd_ptr = rd_ptr;
+        expected.debug.occupancy  = occupancy;
+        expected.debug.wr_ptr     = wr_ptr;
+        expected.debug.rd_ptr     = rd_ptr;
+        expected.debug.last_error = last_error;
 
         return expected;
     endfunction

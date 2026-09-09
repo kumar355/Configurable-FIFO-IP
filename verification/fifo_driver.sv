@@ -112,8 +112,13 @@ class fifo_driver #(
         for (int unsigned i = 0; i < transaction_count; i++) begin
             fifo_transaction #(DATA_WIDTH) txn;
             in_mb.get(txn);
-            drive_transaction(txn);
+
             @(vif.drv_cb);
+
+            drive_transaction(txn);
+
+            @(vif.drv_cb);
+
             reset_outputs();
             driven_count++;
         end

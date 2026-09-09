@@ -137,6 +137,11 @@ module sync_fifo_ctrl
 
         endcase
 
+        if (rd_req)
+        begin
+            mem_rd_addr = next_state.rd_ptr[ADDR_WIDTH-1:0];
+        end
+
     end
 
     always_comb
@@ -208,6 +213,7 @@ module sync_fifo_ctrl
 
             OP_IDLE :
             begin
+                next_state.last_error  = ERR_NONE;
             end
 
             OP_FLUSH :
@@ -289,31 +295,31 @@ module sync_fifo_ctrl
     always_comb
     begin
 
-        occupancy = state.occupancy;
+        occupancy = next_state.occupancy;
 
         empty =
 
-            (state.occupancy == 0);
+            (next_state.occupancy == 0);
 
         full =
 
-            (state.occupancy == FIFO_DEPTH);
+            (next_state.occupancy == FIFO_DEPTH);
 
         almost_full =
 
-            (state.occupancy >= af_threshold);
+            (next_state.occupancy >= af_threshold);
 
         almost_empty =
 
-            (state.occupancy <= ae_threshold);
+            (next_state.occupancy <= ae_threshold);
 
         overflow =
 
-            (state.last_error == ERR_OVERFLOW);
+            (next_state.last_error == ERR_OVERFLOW);
 
         underflow =
 
-            (state.last_error == ERR_UNDERFLOW);
+            (next_state.last_error == ERR_UNDERFLOW);
 
 
     end
@@ -330,9 +336,9 @@ module sync_fifo_ctrl
                         frozen_write,
                         overflow,
                         underflow,
-                        state.occupancy,
-                        state.wr_ptr,
-                        state.rd_ptr };
+                        next_state.occupancy,
+                        next_state.wr_ptr,
+                        next_state.rd_ptr };
 
     end
 
